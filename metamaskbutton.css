@@ -1,0 +1,87 @@
+.metamask-container {
+  text-align: center;
+  margin: 20px 0;
+  font-family: "Rajdhani", sans-serif;
+}
+
+/* --- Default button --- */
+.metamask-btn {
+  background: transparent;
+  border: 2px solid #00ffd5;
+  color: #00ffd5;
+  padding: 14px 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 213, 0.3);
+}
+
+.metamask-btn:hover {
+  background: #00ffd5;
+  color: #010915;
+  box-shadow: 0 0 20px #00ffd5, 0 0 40px #00ffd5;
+  transform: scale(1.05);
+}
+
+.metamask-btn.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Connected panel --- */
+.connected-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #00ffd5;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 0 15px rgba(0, 255, 213, 0.2);
+}
+
+.wallet-address {
+  color: #00ffd5;
+  font-size: 15px;
+  font-weight: 600;
+  text-shadow: 0 0 10px #00ffd5;
+}
+
+.disconnect-btn {
+  background: transparent;
+  border: 1px solid #ff6f91;
+  color: #ff6f91;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.disconnect-btn:hover {
+  background: #ff6f91;
+  color: #fff;
+  box-shadow: 0 0 15px #ff6f91;
+}
+
+/* --- Error text --- */
+.error {
+  color: #ff6f91;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+/* --- Theme Variants --- */
+.metamask-container.light .metamask-btn {
+  border-color: #00b8ff;
+  color: #00b8ff;
+}
+.metamask-container.light .metamask-btn:hover {
+  background: #00b8ff;
+  color: #fff;
+}
