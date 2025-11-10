@@ -1,3 +1,51 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import
+{
+  "name": "racechain",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "RaceChain — A futuristic Web3 racing game built with React, Three.js, and Ethers.js. Powered by Zep Cash (ZAC) tokens.",
+  "author": "Zep Shop Labs",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js,.jsx",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.96.0",
+    "@react-three/fiber": "^9.0.0",
+    "ethers": "^6.11.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.1",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react": "^7.34.1",
+    "prettier": "^3.3.2",
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "react",
+    "vite",
+    "threejs",
+    "ethers",
+    "metamask",
+    "game",
+    "nft",
+    "polygon",
+    "racechain",
+    "zepcash"
+  ]
+}
