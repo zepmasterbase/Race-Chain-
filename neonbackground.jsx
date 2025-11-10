@@ -17,52 +17,42 @@ export default function NeonBackground() {
     renderer.setClearColor(0x05081b, 1);
     mountRef.current.appendChild(renderer.domElement);
 
-    // Lights
     const ambient = new THREE.AmbientLight(0x00ffff, 0.2);
     const point = new THREE.PointLight(0x00fff0, 1, 50);
     point.position.set(0, 10, 10);
     scene.add(ambient, point);
 
-    // Create glowing city grid (simple boxes)
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshPhongMaterial({
-      emissive: 0x00ffd5,
-      emissiveIntensity: 0.9,
-      color: 0x101010,
-      shininess: 100,
-    });
-
     const buildings = [];
     for (let i = 0; i < 300; i++) {
-      const cube = new THREE.Mesh(geometry, material.clone());
+      const material = new THREE.MeshPhongMaterial({
+        emissive: new THREE.Color(`hsl(${Math.random() * 360}, 100%, 60%)`),
+        emissiveIntensity: 1,
+        color: 0x101010,
+      });
+      const cube = new THREE.Mesh(geometry, material);
       cube.position.set(
         (Math.random() - 0.5) * 100,
         Math.random() * 5,
         (Math.random() - 0.5) * 100
       );
       cube.scale.y = Math.random() * 15 + 1;
-      cube.material.emissive.setHSL(Math.random(), 1, 0.5);
       scene.add(cube);
       buildings.push(cube);
     }
 
-    // Camera setup
     camera.position.z = 30;
     camera.position.y = 10;
 
-    // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
-      buildings.forEach((b) => {
-        b.rotation.y += 0.002;
-      });
+      buildings.forEach((b) => (b.rotation.y += 0.002));
       camera.position.x = Math.sin(Date.now() * 0.0003) * 20;
       camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
     };
     animate();
 
-    // Handle window resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
