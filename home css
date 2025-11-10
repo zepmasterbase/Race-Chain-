@@ -1,0 +1,100 @@
+.homepage {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #0f1838, #05081b);
+  color: #cce9ff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+  background: linear-gradient(to bottom, rgba(0,255,213,0.05), transparent);
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 64px;
+  color: #00ffd5;
+  text-shadow: 0 0 25px #00ffd5;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 20px;
+  opacity: 0.9;
+  margin-bottom: 40px;
+}
+
+.connect-btn {
+  background: #00ffd5;
+  color: #02121a;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 18px #00ffd5;
+  transition: 0.3s;
+}
+.connect-btn:hover { transform: scale(1.05); }
+
+.connected { margin-top: 16px; color: #89f2ff; }
+
+.error { color: #ff6f91; margin-top: 10px; }
+
+.city-section, .driver-section {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+.city-grid, .driver-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.city-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.city-card:hover { transform: translateY(-3px); }
+.city-card.active { border-color: #00ffd5; box-shadow: 0 0 15px rgba(0,255,213,0.4); }
+
+.city-selected {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #00ffd5;
+}
+
+.driver-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 24px;
+  transition: 0.3s;
+}
+.driver-card:hover { transform: translateY(-2px); box-shadow: 0 0 12px rgba(0,255,213,0.25); }
+.driver-avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ffd5, #ff00d0);
+  box-shadow: 0 0 20px rgba(0,255,213,0.4);
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 14px;
+  color: #aaa;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
