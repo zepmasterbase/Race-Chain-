@@ -1,3 +1,176 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import
+/* ==========================================
+   RaceChain Design System — variables.css
+   Author: Zep Shop Labs
+   Version: 1.0.0
+   ========================================== */
+
+/* ------------------------------------------
+   🎨 COLOR PALETTE
+   ------------------------------------------ */
+:root {
+  /* ----- Core Brand Colors ----- */
+  --color-primary: #00ffd5; /* neon cyan */
+  --color-accent: #ff00d0;  /* neon magenta */
+  --color-gold: #ffaa00;    /* reward gold */
+  --color-dark: #05081b;    /* main background */
+  --color-dark-alt: #0a1228; /* secondary background */
+  --color-text: #cce9ff;    /* main text color */
+  --color-muted: #9dcfff;   /* dimmed text color */
+  --color-error: #ff6f91;   /* alerts and error text */
+
+  /* ----- Transparency Variants ----- */
+  --color-primary-light: rgba(0, 255, 213, 0.3);
+  --color-accent-light: rgba(255, 0, 208, 0.3);
+  --color-dark-overlay: rgba(5, 8, 27, 0.85);
+  --color-glow: rgba(0, 255, 213, 0.4);
+
+  /* ----- UI States ----- */
+  --color-success: #00ff8a;
+  --color-warning: #ffaa00;
+  --color-danger: #ff006e;
+}
+
+/* ------------------------------------------
+   🌈 GRADIENTS
+   ------------------------------------------ */
+:root {
+  --gradient-primary: linear-gradient(90deg, #00ffd5, #00b8ff);
+  --gradient-accent: linear-gradient(90deg, #ff00d0, #ffaa00);
+  --gradient-race: linear-gradient(135deg, #00ffd5, #ff00d0, #ffaa00);
+  --gradient-bg: radial-gradient(circle at 20% 30%, #0a1228, #05081b 80%);
+  --gradient-glow: linear-gradient(45deg, rgba(0, 255, 213, 0.6), rgba(255, 0, 208, 0.5));
+}
+
+/* ------------------------------------------
+   💡 SHADOWS / GLOWS
+   ------------------------------------------ */
+:root {
+  --shadow-neon: 0 0 25px var(--color-primary);
+  --shadow-accent: 0 0 25px var(--color-accent);
+  --shadow-gold: 0 0 25px var(--color-gold);
+  --shadow-soft: 0 0 15px rgba(0, 0, 0, 0.4);
+  --shadow-hard: 0 0 50px rgba(0, 255, 213, 0.4);
+}
+
+/* ------------------------------------------
+   🧱 SPACING / RADIUS / SIZES
+   ------------------------------------------ */
+:root {
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-round: 999px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 60px;
+}
+
+/* ------------------------------------------
+   🔤 TYPOGRAPHY
+   ------------------------------------------ */
+:root {
+  --font-title: "Orbitron", sans-serif;
+  --font-body: "Rajdhani", sans-serif;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 38px;
+  --font-size-3xl: 52px;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  --line-height-base: 1.6;
+  --letter-spacing-wide: 0.5px;
+}
+
+/* ------------------------------------------
+   ⚙️ TRANSITIONS / ANIMATION SPEEDS
+   ------------------------------------------ */
+:root {
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+  --transition-slow: 0.7s ease;
+
+  --animation-fast: 0.8s;
+  --animation-medium: 1.5s;
+  --animation-slow: 3s;
+}
+
+/* ------------------------------------------
+   🧩 COMPONENT-SPECIFIC VARIABLES
+   ------------------------------------------ */
+:root {
+  /* --- Buttons --- */
+  --btn-padding: 12px 28px;
+  --btn-font-size: 16px;
+  --btn-radius: 10px;
+  --btn-glow: var(--shadow-neon);
+
+  /* --- Cards --- */
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-radius: 12px;
+  --card-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
+
+  /* --- Inputs --- */
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: var(--color-primary);
+  --input-radius: 8px;
+
+  /* --- HUD --- */
+  --hud-bg: rgba(5, 8, 27, 0.6);
+  --hud-border: 1px solid var(--color-primary-light);
+  --hud-radius: 10px;
+  --hud-font: var(--font-body);
+}
+
+/* ------------------------------------------
+   🌍 Z-INDEX LAYERS
+   ------------------------------------------ */
+:root {
+  --z-base: 1;
+  --z-overlay: 10;
+  --z-modal: 100;
+  --z-hud: 200;
+  --z-tooltip: 300;
+}
+
+/* ------------------------------------------
+   📱 RESPONSIVE BREAKPOINTS
+   ------------------------------------------ */
+:root {
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+}
+
+/* ------------------------------------------
+   ✨ GLOBAL THEMES (FUTURE SUPPORT)
+   ------------------------------------------ */
+:root[data-theme="light"] {
+  --color-bg: #fdfdfd;
+  --color-text: #101010;
+  --color-primary: #0077ff;
+  --color-accent: #ff0077;
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #05081b;
+  --color-text: #cce9ff;
+  --color-primary: #00ffd5;
+  --color-accent: #ff00d0;
+}
