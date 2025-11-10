@@ -1,3 +1,144 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import
+.admin {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 30%, #0a1228, #040816 80%);
+  color: #cce9ff;
+  font-family: "Rajdhani", sans-serif;
+  padding: 40px 20px;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.admin-header h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 42px;
+  color: #00ffd5;
+  text-shadow: 0 0 20px #00ffd5;
+}
+
+.connect-btn {
+  margin-top: 20px;
+  background: transparent;
+  border: 2px solid #00ffd5;
+  color: #00ffd5;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.connect-btn:hover {
+  background: #00ffd5;
+  color: #010915;
+  box-shadow: 0 0 15px #00ffd5;
+}
+
+.wallet-display {
+  margin-top: 10px;
+  color: #80ffe5;
+}
+
+.error {
+  color: #ff6f91;
+  margin-top: 10px;
+}
+
+/* ===== Main Content ===== */
+.admin-main {
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #00ffd5;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 0 15px rgba(0, 255, 213, 0.1);
+}
+.card h3 {
+  color: #00ffd5;
+  font-size: 28px;
+  margin: 0;
+}
+.card p {
+  color: #aeefff;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.racers {
+  margin-top: 50px;
+}
+.racers table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.racers th, .racers td {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 14px;
+}
+.racers th {
+  color: #00ffd5;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.racers td {
+  color: #cce9ff;
+  font-size: 14px;
+}
+.racers tr:hover {
+  background: rgba(0,255,213,0.1);
+}
+
+.actions {
+  margin-top: 50px;
+}
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.admin-btn {
+  background: #00ffd5;
+  border: none;
+  color: #010915;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.admin-btn:hover {
+  box-shadow: 0 0 20px #00ffd5;
+  transform: translateY(-2px);
+}
+
+.admin-btn.danger {
+  background: #ff3b6b;
+  color: #fff;
+}
+.admin-btn.danger:hover {
+  box-shadow: 0 0 20px #ff3b6b;
+}
+
+.unauthorized {
+  text-align: center;
+  margin-top: 100px;
+  color: #ff6f91;
+}
