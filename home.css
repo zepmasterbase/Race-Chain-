@@ -1,79 +1,114 @@
-import { useState } from "react";
-import { ethers } from "ethers";
-import NeonBackground from "../components/NeonBackground";
-import "./home.css";
+.homepage {
+  min-height: 100vh;
+  color: #cce9ff;
+  font-family: 'Rajdhani', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
 
-export default function HomePage() {
-  const [wallet, setWallet] = useState(null);
-  const [error, setError] = useState("");
-  const [selectedCity, setSelectedCity] = useState(null);
-
-  async function connectWallet() {
-    try {
-      if (!window.ethereum) {
-        setError("MetaMask not found. Please install it to play.");
-        return;
-      }
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const accounts = await provider.send("eth_requestAccounts", []);
-      setWallet(accounts[0]);
-      setError("");
-    } catch (err) {
-      setError("Connection failed: " + err.message);
-    }
-  }
-
-  const cities = [
-    { name: "Cape Town", color: "#00ffd5" },
-    { name: "Nairobi", color: "#ff00d0" },
-    { name: "Accra", color: "#ffaa00" },
-    { name: "Lagos", color: "#00aaff" },
-  ];
-
-  return (
-    <div className="homepage">
-      <NeonBackground />
-      <header className="hero">
-        <h1 className="title">RACECHAIN</h1>
-        <p className="subtitle">Web3 Racing in the Metaverse</p>
-
-        {!wallet ? (
-          <button className="connect-btn" onClick={connectWallet}>
-            🔗 Connect MetaMask to Start
-          </button>
-        ) : (
-          <div className="connected">
-            Connected: {wallet.slice(0, 6)}...{wallet.slice(-4)}
-          </div>
-        )}
-
-        {error && <p className="error">{error}</p>}
-      </header>
-
-      <section className="city-section">
-        <h2>Select Your City Track</h2>
-        <div className="city-grid">
-          {cities.map((c) => (
-            <div
-              key={c.name}
-              className={`city-card ${selectedCity === c.name ? "active" : ""}`}
-              style={{ borderColor: c.color }}
-              onClick={() => setSelectedCity(c.name)}
-            >
-              <h3>{c.name}</h3>
-            </div>
-          ))}
-        </div>
-        {selectedCity && (
-          <p className="city-selected">
-            ✅ You selected <strong>{selectedCity}</strong>. Get ready to race!
-          </p>
-        )}
-      </section>
-
-      <footer className="footer">
-        <p>Powered by <strong>Zep Cash (ZAC)</strong> | © 2025 RaceChain</p>
-      </footer>
-    </div>
+.homepage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 8, 27, 0.7),
+    rgba(5, 8, 27, 0.95)
   );
+  z-index: 0;
+}
+
+.hero {
+  text-align: center;
+  padding: 120px 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 64px;
+  color: #00ffd5;
+  text-shadow: 0 0 25px #00ffd5;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 20px;
+  opacity: 0.9;
+  margin-bottom: 40px;
+}
+
+.connect-btn {
+  background: #00ffd5;
+  color: #02121a;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 18px #00ffd5;
+  transition: 0.3s;
+}
+.connect-btn:hover {
+  transform: scale(1.05);
+}
+
+.connected {
+  margin-top: 16px;
+  color: #89f2ff;
+}
+
+.error {
+  color: #ff6f91;
+  margin-top: 10px;
+}
+
+.city-section {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.city-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.city-card.active {
+  border-color: #00ffd5;
+  box-shadow: 0 0 15px rgba(0, 255, 213, 0.4);
+}
+.city-card:hover {
+  transform: translateY(-3px);
+}
+
+.city-selected {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #00ffd5;
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 14px;
+  color: #aaa;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  position: relative;
 }
