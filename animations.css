@@ -1,3 +1,267 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import
+/* ===========================
+   RACECHAIN GLOBAL ANIMATIONS
+   =========================== */
+
+/* --- NEON PULSE --- */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 0 0 15px #00ffd5, 0 0 30px #00ffd5;
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow: 0 0 35px #00ffd5, 0 0 60px #00ffd5;
+    filter: brightness(1.4);
+  }
+}
+
+/* --- PINK ACCENT PULSE --- */
+@keyframes pinkPulse {
+  0%, 100% {
+    text-shadow: 0 0 15px #ff00d0, 0 0 30px #ff00d0;
+  }
+  50% {
+    text-shadow: 0 0 35px #ff00d0, 0 0 70px #ff00d0;
+  }
+}
+
+/* --- CYBER FADE-IN --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- FADE-OUT --- */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* --- SLIDE-IN LEFT --- */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* --- SLIDE-IN RIGHT --- */
+@keyframes slideInRight {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* --- SLIDE-IN UP --- */
+@keyframes slideInUp {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- SLIDE-IN DOWN --- */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- RACECHAIN SPARK TRAIL --- */
+@keyframes sparkTrail {
+  0% {
+    box-shadow: 0 0 5px #00ffd5, 0 0 10px #00ffd5;
+  }
+  50% {
+    box-shadow: 0 0 25px #00ffd5, 0 0 50px #00ffd5;
+  }
+  100% {
+    box-shadow: 0 0 5px #00ffd5, 0 0 10px #00ffd5;
+  }
+}
+
+/* --- GLOW FLARE (for icons, cars, titles) --- */
+@keyframes glowFlare {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px #00ffd5);
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 25px #00ffd5);
+    opacity: 0.9;
+  }
+}
+
+/* --- LOADING PULSE (for "Loading..." texts) --- */
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* --- SPIN (for loading icons) --- */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- ZOOM-IN FADE --- */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- ZOOM-OUT FADE --- */
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+/* --- RACE SPEED BLUR --- */
+@keyframes speedBlur {
+  0% {
+    filter: blur(0px);
+  }
+  50% {
+    filter: blur(3px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}
+
+/* --- SHINE SWEEP (for buttons) --- */
+@keyframes shineSweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* --- WINNING FLASH --- */
+@keyframes winnerFlash {
+  0%, 100% {
+    background-color: rgba(0, 255, 213, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ===========================
+   UTILITY CLASSES
+   =========================== */
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 1s ease forwards;
+}
+
+.slide-in-up {
+  animation: slideInUp 1s ease forwards;
+}
+
+.slide-in-down {
+  animation: slideInDown 1s ease forwards;
+}
+
+.neon-pulse {
+  animation: neonPulse 2.5s infinite ease-in-out;
+}
+
+.pink-pulse {
+  animation: pinkPulse 2.5s infinite ease-in-out;
+}
+
+.spark-trail {
+  animation: sparkTrail 2s infinite linear;
+}
+
+.glow-flare {
+  animation: glowFlare 2s infinite ease-in-out;
+}
+
+.loading-pulse {
+  animation: loadingPulse 1.5s infinite ease-in-out;
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+}
+
+.zoom-in {
+  animation: zoomIn 0.8s ease forwards;
+}
+
+.zoom-out {
+  animation: zoomOut 0.8s ease forwards;
+}
+
+.speed-blur {
+  animation: speedBlur 0.6s ease-in-out infinite;
+}
+
+.winner-flash {
+  animation: winnerFlash 1s infinite;
+}
+
+.shine-sweep {
+  background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.2) 100%);
+  background-size: 200% auto;
+  animation: shineSweep 3s linear infinite;
+}
