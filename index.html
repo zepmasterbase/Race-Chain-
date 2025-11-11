@@ -1,218 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RaceChain — Web3 Racing in the Metaverse</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RaceChain — Web3 Ferrari Metaverse</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 <style>
-:root {
-  --neon-blue: #00f0ff;
-  --neon-pink: #ff00f0;
-  --asphalt: #030010;
-}
+html,body { margin:0; padding:0; height:100%; overflow:hidden; background:black; color:white; font-family:'Orbitron',sans-serif;}
+canvas { display:block; }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Poppins',sans-serif;
-  background: radial-gradient(circle at 50% 10%, var(--asphalt) 0%, #000010 100%);
-  color:#fff;overflow:hidden;height:100vh;
+.overlay {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  background: radial-gradient(circle at 50% 60%, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+  z-index:10; text-align:center;
 }
-
-/* ===== 3D SCENE ===== */
-.scene {
-  position:relative;width:100%;height:100%;
-  perspective:1000px;overflow:hidden;
+h1 {
+  font-size:3rem;
+  background:linear-gradient(90deg,#00f0ff,#9c4dff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 40px rgba(0,240,255,0.8);
+  animation: glow 3s infinite alternate;
 }
-
-/* Moving track */
-.track {
-  position:absolute;bottom:0;width:300%;height:50vh;
-  background:repeating-linear-gradient(90deg,#111 0 20px,#060006 20px 40px);
-  transform:rotateX(60deg)translateY(30%);
-  animation:moveTrack 1.4s linear infinite;
+@keyframes glow {
+  from { text-shadow:0 0 20px rgba(0,240,255,0.4);}
+  to { text-shadow:0 0 60px rgba(156,77,255,0.8);}
 }
-@keyframes moveTrack{
-  from{transform:rotateX(60deg)translateY(30%)translateX(0);}
-  to{transform:rotateX(60deg)translateY(30%)translateX(-40px);}
+p { opacity:0.85; margin-top:0.8rem; max-width:500px; }
+button {
+  margin-top:1.8rem;
+  background:linear-gradient(90deg,#00f0ff,#9c4dff);
+  border:none; border-radius:999px;
+  padding:14px 32px;
+  color:#050018; font-weight:700;
+  cursor:pointer; transition:0.3s;
+  font-size:1.1rem; box-shadow:0 0 40px rgba(0,240,255,0.5);
 }
-
-/* Neon Road Lights */
-.neon-light {
-  position:absolute;bottom:50vh;
-  width:3px;height:80vh;
-  background:linear-gradient(to top,rgba(0,240,255,0.8),transparent);
-  filter:blur(1px);
-  opacity:0.5;
-  animation:moveLights 2.2s linear infinite;
-}
-@keyframes moveLights {
-  from {transform:translateZ(0);}
-  to {transform:translateZ(-500px);}
-}
-
-/* ===== FERRARI CARS ===== */
-.car{
-  position:absolute;width:180px;bottom:28vh;
-  filter:drop-shadow(0 0 25px #ff4040);
-  opacity:0.9;transition:0.3s;
-}
-.car.ferrari1{
-  left:-220px;animation:raceLeft 5s linear infinite;
-}
-.car.ferrari2{
-  left:-280px;animation:raceRight 6s linear infinite 2s;
-  filter:drop-shadow(0 0 25px var(--neon-blue));
-}
-@keyframes raceLeft{
-  0%{transform:translateX(-200px)scale(0.9)rotateY(12deg);opacity:.7;}
-  60%{transform:translateX(120vw)scale(1.05)rotateY(-6deg);opacity:1;}
-  100%{transform:translateX(130vw)scale(1.05);opacity:0;}
-}
-@keyframes raceRight{
-  0%{transform:translateX(-300px)scale(0.85)rotateY(8deg);opacity:.7;}
-  60%{transform:translateX(110vw)scale(1.05)rotateY(-6deg);opacity:1;}
-  100%{transform:translateX(130vw)scale(1.1);opacity:0;}
-}
-
-/* Light trail */
-.car::after{
-  content:"";position:absolute;width:70%;height:8px;
-  bottom:10px;left:-40%;
-  background:linear-gradient(90deg,rgba(255,0,0,.8),transparent);
-  filter:blur(8px);border-radius:10px;
-  animation:trailGlow .3s ease-in-out infinite alternate;
-}
-@keyframes trailGlow{
-  from{opacity:.7;width:50%;}
-  to{opacity:1;width:80%;}
-}
-
-/* Speed Sparks */
-.particle{
-  position:absolute;
-  width:4px;height:4px;border-radius:50%;
-  background:var(--neon-blue);
-  animation:flySpark linear infinite;
-}
-@keyframes flySpark{
-  from{transform:translateY(0)translateX(0);opacity:1;}
-  to{transform:translateY(80vh)translateX(60vw);opacity:0;}
-}
-
-/* ===== HERO SECTION ===== */
-.hero{
-  position:absolute;top:25%;width:100%;text-align:center;z-index:10;
-}
-.hero h1{
-  font-family:'Orbitron',sans-serif;
-  font-size:2.8rem;font-weight:700;
-  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px rgba(0,240,255,0.6);
-  animation:textPulse 3s ease-in-out infinite alternate;
-}
-@keyframes textPulse{
-  0%{text-shadow:0 0 15px rgba(0,240,255,0.4);}
-  100%{text-shadow:0 0 40px rgba(255,0,240,0.6);}
-}
-.hero p{
-  font-size:1.1rem;margin:0.6rem auto 2rem;opacity:.8;
-}
-
-/* Connect Wallet */
-.connect-btn{
-  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
-  color:#050018;border:none;border-radius:999px;
-  padding:14px 28px;
-  font-family:'Orbitron';font-weight:700;font-size:1rem;
-  cursor:pointer;box-shadow:0 0 25px rgba(0,240,255,0.4);
-  transition:.3s;
-}
-.connect-btn:hover{
-  transform:scale(1.07);
-  box-shadow:0 0 40px rgba(255,0,240,0.5);
-}
-
-/* City Buttons */
-.cities{
-  margin-top:2rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
-}
-.city-btn{
-  padding:10px 20px;background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:999px;font-family:'Orbitron';
-  color:var(--neon-blue);font-weight:600;transition:.3s;
-}
-.city-btn:hover{
-  background:rgba(0,240,255,0.15);
-  color:#fff;transform:scale(1.05);
-}
-
-/* ===== AUDIO ===== */
-audio{display:none;}
+button:hover { transform:scale(1.08); box-shadow:0 0 80px rgba(156,77,255,0.8);}
 </style>
 </head>
 
 <body>
-<div class="scene">
-  <!-- Moving road + lights -->
-  <div class="track"></div>
-  <div class="neon-light" style="left:10%;animation-delay:0s;"></div>
-  <div class="neon-light" style="left:30%;animation-delay:1s;"></div>
-  <div class="neon-light" style="left:50%;animation-delay:1.5s;"></div>
-  <div class="neon-light" style="left:70%;animation-delay:2s;"></div>
-  <div class="neon-light" style="left:90%;animation-delay:2.5s;"></div>
-
-  <!-- Racing Cars -->
-  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari1" alt="Ferrari Enzo">
-  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari2" alt="Ferrari Enzo">
-
-  <!-- Hero Section -->
-  <div class="hero">
-    <h1>RACECHAIN</h1>
-    <p>Web3 Racing in the Metaverse — Earn tokens while you race.</p>
-    <button class="connect-btn" onclick="connectWallet()">CONNECT METAMASK TO START RACING</button>
-
-    <div class="cities">
-      <button class="city-btn">Cape Town</button>
-      <button class="city-btn">Nairobi</button>
-      <button class="city-btn">Accra</button>
-      <button class="city-btn">Lagos</button>
-    </div>
-  </div>
+<canvas id="scene"></canvas>
+<div class="overlay">
+  <h1>RACECHAIN</h1>
+  <p>Enter the Neon Streets — Drive, Earn, and Compete in the Web3 Ferrari Metaverse.</p>
+  <button onclick="connectWallet()">Connect Wallet to Start</button>
 </div>
 
-<audio id="engineSound" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_39f4b45c6f.mp3?filename=car-engine-18138.mp3" type="audio/mpeg">
+<audio id="engine" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_39f4b45c6f.mp3?filename=car-engine-18138.mp3" type="audio/mpeg" />
 </audio>
 
 <script>
-// Connect simulation + sound
-function connectWallet(){
-  const btn=document.querySelector('.connect-btn');
-  btn.textContent="✅ Wallet Connected — Ready to Race";
-  btn.style.background="linear-gradient(90deg,#00f0ff,#a6ff00)";
-  btn.style.boxShadow="0 0 30px rgba(0,240,255,0.7)";
-  const audio=document.getElementById('engineSound');
-  audio.volume=0.4; audio.play();
-  spawnParticles();
+// === 3D SETUP ===
+const canvas = document.querySelector('#scene');
+const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x000010, 10, 80);
+
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 500);
+camera.position.set(0,3,10);
+
+// === LIGHTS ===
+const ambient = new THREE.AmbientLight(0x00f0ff,0.4);
+const dirLight = new THREE.PointLight(0x9c4dff,2,100);
+dirLight.position.set(0,10,10);
+scene.add(ambient,dirLight);
+
+// === GROUND ===
+const groundGeo = new THREE.PlaneGeometry(200,400);
+const groundMat = new THREE.MeshStandardMaterial({color:0x050010, metalness:0.9, roughness:0.4, emissive:0x001133, emissiveIntensity:0.8});
+const ground = new THREE.Mesh(groundGeo,groundMat);
+ground.rotation.x = -Math.PI/2;
+scene.add(ground);
+
+// === NEON CITY LIGHTS ===
+for(let i=0;i<60;i++){
+  const light = new THREE.Mesh(new THREE.BoxGeometry(0.5,Math.random()*6+3,0.5),
+    new THREE.MeshStandardMaterial({
+      color: new THREE.Color(`hsl(${Math.random()*360},100%,60%)`),
+      emissive: 0x00f0ff, emissiveIntensity: 1.5, metalness: 1
+    }));
+  light.position.set((Math.random()-0.5)*80,light.geometry.parameters.height/2,(Math.random()-0.5)*200);
+  scene.add(light);
 }
 
-// Random spark generator
-function spawnParticles(){
-  const scene=document.querySelector('.scene');
-  setInterval(()=>{
-    const p=document.createElement('div');
-    p.className='particle';
-    p.style.left=Math.random()*window.innerWidth+'px';
-    p.style.top='0px';
-    p.style.animationDuration=(Math.random()*2+1)+'s';
-    scene.appendChild(p);
-    setTimeout(()=>p.remove(),2500);
-  },200);
+// === LOAD FERRARI MODEL ===
+const loader = new THREE.GLTFLoader();
+let ferraris = [];
+const modelURL = "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Ferrari/scene.gltf"; // sample Ferrari placeholder
+
+function loadCar(xOffset, color){
+  loader.load(modelURL, gltf=>{
+    const car = gltf.scene;
+    car.scale.set(0.015,0.015,0.015);
+    car.position.set(xOffset,0,Math.random()*-50);
+    car.traverse(obj=>{
+      if(obj.isMesh){ 
+        obj.material.emissive = new THREE.Color(color);
+        obj.material.emissiveIntensity = 0.8;
+      }
+    });
+    scene.add(car);
+    ferraris.push({mesh:car,speed:0.6+Math.random()*0.2});
+  });
 }
+
+loadCar(-2,0xff2222);
+loadCar(2,0x00f0ff);
+
+// === BLOOM EFFECT ===
+const composer = new THREE.EffectComposer(renderer);
+const renderPass = new THREE.RenderPass(scene,camera);
+const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),1.5,0.4,0.85);
+bloomPass.threshold=0; bloomPass.strength=1.2; bloomPass.radius=0.6;
+composer.addPass(renderPass);
+composer.addPass(bloomPass);
+
+// === ANIMATE ===
+function animate(){
+  requestAnimationFrame(animate);
+  ferraris.forEach(f=>{
+    f.mesh.position.z += f.speed;
+    if(f.mesh.position.z>60) f.mesh.position.z=-60;
+  });
+  camera.position.x = Math.sin(Date.now()*0.0003)*5;
+  camera.lookAt(0,1,0);
+  composer.render();
+}
+animate();
+
+// === CONNECT WALLET SIMULATION ===
+function connectWallet(){
+  const engine = document.getElementById('engine');
+  engine.volume=0.3; engine.play();
+  document.querySelector('button').textContent="✅ Wallet Connected — Entering Race";
+  document.querySelector('button').style.background="linear-gradient(90deg,#00f0ff,#a6ff00)";
+  setTimeout(()=>document.querySelector('.overlay').style.opacity=0,1500);
+}
+
+// Resize
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  composer.setSize(window.innerWidth,window.innerHeight);
+});
 </script>
 </body>
 </html>
