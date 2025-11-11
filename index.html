@@ -1,75 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RaceChain — Web3 Racing in the Metaverse</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --neon-blue: #00f0ff;
+  --neon-pink: #ff00f0;
+  --neon-orange: #ff9900;
+  --dark-bg: radial-gradient(circle at 20% 10%, #02000a 0%, #000010 100%);
+}
 
-    <title>RaceChain | Web3 Racing in the Metaverse</title>
-    <meta
-      name="description"
-      content="RaceChain — Web3 racing in the metaverse. Connect MetaMask, race through neon-lit cities, and earn ZAC tokens."
-    />
+body {
+  margin: 0;
+  background: var(--dark-bg);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+/* === Background Road Animation === */
+.race-track {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #050018 30%, #000010 90%);
+}
 
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: radial-gradient(circle at 20% 30%, #091233, #05081b 70%);
-        color: #cce9ff;
-        font-family: "Rajdhani", sans-serif;
-        overflow: hidden;
-      }
-      #root {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-      }
-      .loading {
-        animation: fade 2s ease-in-out infinite alternate;
-      }
-      .loading h1 {
-        font-family: "Orbitron", sans-serif;
-        color: #00ffd5;
-        font-size: 3rem;
-        margin-bottom: 10px;
-        text-shadow: 0 0 20px #00ffd5;
-      }
-      .loading p {
-        color: #88eaff;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-      }
-      @keyframes fade {
-        from {
-          opacity: 0.3;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-    </style>
-  </head>
+.car {
+  position: absolute;
+  bottom: 15%;
+  width: 120px;
+  height: 60px;
+  background-size: cover;
+  animation: drive 6s linear infinite;
+  filter: drop-shadow(0 0 20px var(--neon-blue));
+}
 
-  <body>
-    <div id="root">
-      <div class="loading">
-        <h1>RACECHAIN</h1>
-        <p>Loading Metaverse Garage...</p>
-      </div>
-    </div>
+.car1 { background-image: url('https://cdn-icons-png.flaticon.com/512/743/743131.png'); left: -150px; animation-delay: 0s; }
+.car2 { background-image: url('https://cdn-icons-png.flaticon.com/512/743/743132.png'); left: -180px; animation-delay: 1s; filter: drop-shadow(0 0 20px var(--neon-orange)); }
+.car3 { background-image: url('https://cdn-icons-png.flaticon.com/512/743/743133.png'); left: -200px; animation-delay: 2s; filter: drop-shadow(0 0 20px var(--neon-pink)); }
 
-    <!-- ✅ React app loads here -->
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+@keyframes drive {
+  0% { transform: translateX(0) scale(1); opacity: 1; }
+  70% { transform: translateX(110vw) scale(1.05); opacity: 1; }
+  100% { transform: translateX(120vw) scale(1.05); opacity: 0; }
+}
+
+/* === Header === */
+header {
+  text-align: center;
+  padding-top: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(0,240,255,0.5);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-top: -10px;
+}
+
+/* === Button === */
+.connect-btn {
+  margin-top: 40px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 40px;
+  font-family: 'Orbitron';
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(0,240,255,0.6);
+  transition: all .3s ease;
+}
+.connect-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 40px rgba(255,0,240,0.5);
+}
+
+/* === Tracks === */
+.tracks {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 40px;
+}
+.tracks h3 {
+  font-family: 'Orbitron';
+  font-size: 1rem;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+.track-btn {
+  margin: 6px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 999px;
+  color: var(--neon-blue);
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.track-btn:hover {
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  color: #000;
+  box-shadow: 0 0 25px rgba(0,240,255,0.4);
+}
+
+/* === Footer Text === */
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+<div class="race-track">
+  <div class="car car1"></div>
+  <div class="car car2"></div>
+  <div class="car car3"></div>
+</div>
+
+<header>
+  <h1>RACECHAIN</h1>
+  <p class="subtitle">Web3 Racing in the Metaverse</p>
+  <button class="connect-btn" onclick="connectWallet()">CONNECT METAMASK TO START RACING</button>
+</header>
+
+<section class="tracks">
+  <h3>Select Your City Track:</h3>
+  <button class="track-btn">Cape Town</button>
+  <button class="track-btn">Nairobi</button>
+  <button class="track-btn">Accra</button>
+  <button class="track-btn">Lagos</button>
+</section>
+
+<footer>© 2025 RaceChain Labs — Drive on the Base Layer 🚀</footer>
+
+<!-- Background Racing Sound -->
+<audio id="engineSound" loop autoplay>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_65ce9a85f0.mp3?filename=car-engine-loop-10966.mp3" type="audio/mp3">
+</audio>
+
+<script>
+function connectWallet(){
+  alert("🔗 MetaMask connected (simulation mode). Redirecting to race lobby...");
+  window.location.href = "race-lobby.html";
+}
+</script>
+</body>
 </html>
