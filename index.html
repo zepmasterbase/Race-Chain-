@@ -1,180 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>RaceChain — Web3 Racing in the Metaverse</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+
 <style>
 :root {
   --neon-blue: #00f0ff;
   --neon-pink: #ff00f0;
-  --asphalt: #080018;
+  --asphalt: #030010;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Poppins', sans-serif;
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
   background: radial-gradient(circle at 50% 10%, var(--asphalt) 0%, #000010 100%);
-  color: #fff;
-  overflow: hidden;
-  height: 100vh;
+  color:#fff;overflow:hidden;height:100vh;
 }
 
 /* ===== 3D SCENE ===== */
 .scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  perspective: 800px;
-  overflow: hidden;
+  position:relative;width:100%;height:100%;
+  perspective:1000px;overflow:hidden;
 }
 
+/* Moving track */
 .track {
-  position: absolute;
-  bottom: 0;
-  width: 300%;
-  height: 50vh;
-  background: repeating-linear-gradient(90deg, #111 0 20px, #060006 20px 40px);
-  transform: rotateX(60deg) translateY(30%);
-  animation: moveTrack 1.8s linear infinite;
+  position:absolute;bottom:0;width:300%;height:50vh;
+  background:repeating-linear-gradient(90deg,#111 0 20px,#060006 20px 40px);
+  transform:rotateX(60deg)translateY(30%);
+  animation:moveTrack 1.4s linear infinite;
 }
-@keyframes moveTrack {
-  from { transform: rotateX(60deg) translateY(30%) translateX(0); }
-  to   { transform: rotateX(60deg) translateY(30%) translateX(-40px); }
+@keyframes moveTrack{
+  from{transform:rotateX(60deg)translateY(30%)translateX(0);}
+  to{transform:rotateX(60deg)translateY(30%)translateX(-40px);}
+}
+
+/* Neon Road Lights */
+.neon-light {
+  position:absolute;bottom:50vh;
+  width:3px;height:80vh;
+  background:linear-gradient(to top,rgba(0,240,255,0.8),transparent);
+  filter:blur(1px);
+  opacity:0.5;
+  animation:moveLights 2.2s linear infinite;
+}
+@keyframes moveLights {
+  from {transform:translateZ(0);}
+  to {transform:translateZ(-500px);}
 }
 
 /* ===== FERRARI CARS ===== */
-.car {
-  position: absolute;
-  width: 180px;
-  bottom: 28vh;
-  filter: drop-shadow(0 0 25px #ff2020);
-  opacity: 0.85;
+.car{
+  position:absolute;width:180px;bottom:28vh;
+  filter:drop-shadow(0 0 25px #ff4040);
+  opacity:0.9;transition:0.3s;
 }
-.car.ferrari1 {
-  left: -220px;
-  animation: raceLeft 6s linear infinite;
+.car.ferrari1{
+  left:-220px;animation:raceLeft 5s linear infinite;
 }
-.car.ferrari2 {
-  left: -280px;
-  animation: raceRight 7s linear infinite;
-  animation-delay: 2s;
-  filter: drop-shadow(0 0 25px var(--neon-blue));
+.car.ferrari2{
+  left:-280px;animation:raceRight 6s linear infinite 2s;
+  filter:drop-shadow(0 0 25px var(--neon-blue));
 }
-@keyframes raceLeft {
-  0% { transform: translateX(-200px) scale(0.9) rotateY(12deg); opacity: 0.7; }
-  70% { transform: translateX(120vw) scale(1.1) rotateY(-8deg); opacity: 1; }
-  100% { transform: translateX(130vw) scale(1.1); opacity: 0; }
+@keyframes raceLeft{
+  0%{transform:translateX(-200px)scale(0.9)rotateY(12deg);opacity:.7;}
+  60%{transform:translateX(120vw)scale(1.05)rotateY(-6deg);opacity:1;}
+  100%{transform:translateX(130vw)scale(1.05);opacity:0;}
 }
-@keyframes raceRight {
-  0% { transform: translateX(-300px) scale(0.85) rotateY(8deg); opacity: 0.7; }
-  60% { transform: translateX(110vw) scale(1.05) rotateY(-6deg); opacity: 1; }
-  100% { transform: translateX(130vw) scale(1.1); opacity: 0; }
+@keyframes raceRight{
+  0%{transform:translateX(-300px)scale(0.85)rotateY(8deg);opacity:.7;}
+  60%{transform:translateX(110vw)scale(1.05)rotateY(-6deg);opacity:1;}
+  100%{transform:translateX(130vw)scale(1.1);opacity:0;}
 }
 
-/* ===== LIGHT TRAILS ===== */
-.car::after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 8px;
-  bottom: 15px;
-  left: -50%;
-  background: linear-gradient(90deg, rgba(255,0,0,0.8), transparent);
-  filter: blur(8px);
-  border-radius: 10px;
-  animation: trailGlow 0.3s ease-in-out infinite alternate;
+/* Light trail */
+.car::after{
+  content:"";position:absolute;width:70%;height:8px;
+  bottom:10px;left:-40%;
+  background:linear-gradient(90deg,rgba(255,0,0,.8),transparent);
+  filter:blur(8px);border-radius:10px;
+  animation:trailGlow .3s ease-in-out infinite alternate;
 }
-@keyframes trailGlow {
-  from { opacity: 0.7; width: 50%; }
-  to { opacity: 1; width: 80%; }
+@keyframes trailGlow{
+  from{opacity:.7;width:50%;}
+  to{opacity:1;width:80%;}
 }
 
-/* ===== HERO TEXT ===== */
-.hero {
-  position: absolute;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  z-index: 5;
+/* Speed Sparks */
+.particle{
+  position:absolute;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--neon-blue);
+  animation:flySpark linear infinite;
 }
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.6rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 25px rgba(0,240,255,0.6);
-  animation: textPulse 3s ease-in-out infinite alternate;
-}
-@keyframes textPulse {
-  0% { text-shadow: 0 0 15px rgba(0,240,255,0.4); }
-  100% { text-shadow: 0 0 40px rgba(255,0,240,0.6); }
-}
-.hero p {
-  font-size: 1.1rem;
-  margin: 0.5rem auto 2rem;
-  opacity: 0.85;
+@keyframes flySpark{
+  from{transform:translateY(0)translateX(0);opacity:1;}
+  to{transform:translateY(80vh)translateX(60vw);opacity:0;}
 }
 
-/* ===== CONNECT BUTTON ===== */
-.connect-btn {
-  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-  color: #050018;
-  border: none;
-  border-radius: 999px;
-  padding: 14px 28px;
-  font-family: 'Orbitron';
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 0 25px rgba(0,240,255,0.4);
-  transition: 0.3s;
+/* ===== HERO SECTION ===== */
+.hero{
+  position:absolute;top:25%;width:100%;text-align:center;z-index:10;
 }
-.connect-btn:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 40px rgba(255,0,240,0.5);
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:2.8rem;font-weight:700;
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 25px rgba(0,240,255,0.6);
+  animation:textPulse 3s ease-in-out infinite alternate;
+}
+@keyframes textPulse{
+  0%{text-shadow:0 0 15px rgba(0,240,255,0.4);}
+  100%{text-shadow:0 0 40px rgba(255,0,240,0.6);}
+}
+.hero p{
+  font-size:1.1rem;margin:0.6rem auto 2rem;opacity:.8;
 }
 
-/* ===== CITY SELECT ===== */
-.cities {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* Connect Wallet */
+.connect-btn{
+  background:linear-gradient(90deg,var(--neon-blue),var(--neon-pink));
+  color:#050018;border:none;border-radius:999px;
+  padding:14px 28px;
+  font-family:'Orbitron';font-weight:700;font-size:1rem;
+  cursor:pointer;box-shadow:0 0 25px rgba(0,240,255,0.4);
+  transition:.3s;
 }
-.city-btn {
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 999px;
-  font-family: 'Orbitron';
-  color: var(--neon-blue);
-  font-weight: 600;
-  transition: 0.3s;
+.connect-btn:hover{
+  transform:scale(1.07);
+  box-shadow:0 0 40px rgba(255,0,240,0.5);
 }
-.city-btn:hover {
-  background: rgba(0,240,255,0.15);
-  color: #fff;
-  transform: scale(1.05);
+
+/* City Buttons */
+.cities{
+  margin-top:2rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.city-btn{
+  padding:10px 20px;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:999px;font-family:'Orbitron';
+  color:var(--neon-blue);font-weight:600;transition:.3s;
+}
+.city-btn:hover{
+  background:rgba(0,240,255,0.15);
+  color:#fff;transform:scale(1.05);
 }
 
 /* ===== AUDIO ===== */
-audio { display: none; }
-
+audio{display:none;}
 </style>
 </head>
+
 <body>
 <div class="scene">
+  <!-- Moving road + lights -->
   <div class="track"></div>
-  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari1" alt="Ferrari Enzo" />
-  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari2" alt="Ferrari Enzo" />
+  <div class="neon-light" style="left:10%;animation-delay:0s;"></div>
+  <div class="neon-light" style="left:30%;animation-delay:1s;"></div>
+  <div class="neon-light" style="left:50%;animation-delay:1.5s;"></div>
+  <div class="neon-light" style="left:70%;animation-delay:2s;"></div>
+  <div class="neon-light" style="left:90%;animation-delay:2.5s;"></div>
 
+  <!-- Racing Cars -->
+  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari1" alt="Ferrari Enzo">
+  <img src="https://cdn.pixabay.com/photo/2016/04/01/12/16/ferrari-1300623_1280.png" class="car ferrari2" alt="Ferrari Enzo">
+
+  <!-- Hero Section -->
   <div class="hero">
     <h1>RACECHAIN</h1>
-    <p>Web3 Racing in the Metaverse — earn tokens while you race</p>
+    <p>Web3 Racing in the Metaverse — Earn tokens while you race.</p>
     <button class="connect-btn" onclick="connectWallet()">CONNECT METAMASK TO START RACING</button>
 
     <div class="cities">
@@ -191,15 +189,29 @@ audio { display: none; }
 </audio>
 
 <script>
-function connectWallet() {
-  const btn = document.querySelector('.connect-btn');
-  btn.textContent = "✅ Wallet Connected";
-  btn.style.background = "linear-gradient(90deg,#00f0ff,#a6ff00)";
-  btn.style.boxShadow = "0 0 30px rgba(0,240,255,0.6)";
-  const audio = document.getElementById('engineSound');
-  audio.volume = 0.3;
-  audio.play();
-  alert("MetaMask Connected! Get ready to race 🏎️💨");
+// Connect simulation + sound
+function connectWallet(){
+  const btn=document.querySelector('.connect-btn');
+  btn.textContent="✅ Wallet Connected — Ready to Race";
+  btn.style.background="linear-gradient(90deg,#00f0ff,#a6ff00)";
+  btn.style.boxShadow="0 0 30px rgba(0,240,255,0.7)";
+  const audio=document.getElementById('engineSound');
+  audio.volume=0.4; audio.play();
+  spawnParticles();
+}
+
+// Random spark generator
+function spawnParticles(){
+  const scene=document.querySelector('.scene');
+  setInterval(()=>{
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*window.innerWidth+'px';
+    p.style.top='0px';
+    p.style.animationDuration=(Math.random()*2+1)+'s';
+    scene.appendChild(p);
+    setTimeout(()=>p.remove(),2500);
+  },200);
 }
 </script>
 </body>
