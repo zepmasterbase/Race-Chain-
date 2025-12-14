@@ -7,190 +7,201 @@
 
 <style>
 :root {
-  --bg: #050b1a;
-  --neon: #00f0ff;
-  --neon-soft: rgba(0,240,255,0.4);
-  --orange: #ff8a00;
-  --text: #cfefff;
+  --neon: #00f6ff;
+  --neon2: #ff8a00;
+  --bg: #020617;
 }
 
 * {
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
   background:
-    radial-gradient(circle at top, #0b1c3d, #030816),
-    linear-gradient(135deg, #020617, #040c20);
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.2)),
+    repeating-linear-gradient(
+      to right,
+      rgba(0,255,255,.04) 0px,
+      rgba(0,255,255,.04) 2px,
+      transparent 2px,
+      transparent 60px
+    ),
+    radial-gradient(circle at center, #081a3a, #020617 70%);
+  overflow: hidden;
+  color: #dffcff;
 }
 
-.container {
+/* NEON ROAD */
+.road {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  max-width: 1200px;
-  padding: 40px 20px;
+  height: 40%;
+  background:
+    linear-gradient(to top, #020617, #050b20);
+}
+
+.road::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 80px,
+      rgba(0,255,255,.4) 80px,
+      rgba(0,255,255,.4) 82px
+    );
+  opacity: 0.15;
+}
+
+/* HEADER */
+.header {
+  position: relative;
+  z-index: 2;
   text-align: center;
+  padding-top: 50px;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  letter-spacing: 0.15em;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: 0.25em;
   color: var(--neon);
-  text-shadow: 0 0 20px var(--neon-soft);
-  margin-bottom: 10px;
+  text-shadow:
+    0 0 10px var(--neon),
+    0 0 30px rgba(0,246,255,.6);
+  animation: pulse 2.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 15px var(--neon); }
+  to { text-shadow: 0 0 40px var(--neon); }
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  opacity: .9;
   margin-bottom: 40px;
 }
 
-.cta {
-  display: inline-block;
-  padding: 20px 40px;
-  border-radius: 14px;
-  border: 2px solid var(--orange);
+/* CTA */
+button {
+  background: transparent;
+  border: 2px solid var(--neon2);
   color: var(--neon);
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-decoration: none;
-  margin-bottom: 60px;
-  box-shadow: 0 0 30px rgba(255,138,0,0.3);
-  transition: all 0.3s ease;
+  padding: 20px 46px;
+  font-size: 1.2rem;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 35px rgba(255,138,0,.4);
+  transition: .3s ease;
 }
 
-.cta:hover {
-  background: rgba(255,138,0,0.15);
-  box-shadow: 0 0 40px rgba(255,138,0,0.6);
+button:hover {
+  background: rgba(255,138,0,.12);
+  box-shadow: 0 0 55px rgba(255,138,0,.8);
 }
 
+/* CARS */
 .cars {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-  margin-bottom: 60px;
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  z-index: 2;
 }
 
 .car {
-  padding: 20px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(0,240,255,0.08), rgba(0,0,0,0.4));
-  box-shadow: 0 0 25px rgba(0,240,255,0.12);
-}
-
-.car-model {
+  width: 240px;
   height: 120px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  background: linear-gradient(135deg, #0ff, #004);
-  opacity: 0.9;
+  position: relative;
+  transform: perspective(800px) rotateX(12deg);
+  animation: idle 3s ease-in-out infinite alternate;
 }
 
-.car-name {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: var(--neon);
+@keyframes idle {
+  from { transform: translateY(0) perspective(800px) rotateX(12deg); }
+  to { transform: translateY(-6px) perspective(800px) rotateX(12deg); }
 }
 
-.stats {
-  font-size: 0.95rem;
-  opacity: 0.9;
+.car-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px 40px 20px 20px;
+  background:
+    linear-gradient(135deg, #0ff, #013),
+    radial-gradient(circle at top, rgba(255,255,255,.35), transparent 60%);
+  box-shadow:
+    0 0 30px rgba(0,255,255,.6),
+    inset 0 0 20px rgba(255,255,255,.2);
 }
 
-.stats span {
-  display: block;
+.car::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 20%;
+  width: 60%;
+  height: 20px;
+  background: radial-gradient(circle, rgba(0,255,255,.6), transparent);
 }
 
-.tracks {
-  margin-top: 30px;
+/* VARIANTS */
+.red .car-body {
+  background: linear-gradient(135deg, #ff004c, #200010);
+  box-shadow: 0 0 35px rgba(255,0,76,.6);
 }
 
-.tracks h2 {
-  color: var(--neon);
-  margin-bottom: 20px;
+.blue .car-body {
+  background: linear-gradient(135deg, #00f6ff, #001b2d);
 }
 
-.track-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
+.green .car-body {
+  background: linear-gradient(135deg, #00ff99, #002015);
 }
 
-.track {
-  padding: 12px 26px;
-  border-radius: 12px;
-  border: 1px solid var(--neon-soft);
-  color: var(--text);
-  background: rgba(0,240,255,0.08);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.track:hover {
-  background: rgba(0,240,255,0.2);
-  box-shadow: 0 0 20px rgba(0,240,255,0.4);
+/* CITY SILHOUETTE */
+.city {
+  position: absolute;
+  bottom: 40%;
+  width: 100%;
+  height: 40%;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.9), transparent),
+    repeating-linear-gradient(
+      to right,
+      #020617,
+      #020617 40px,
+      #030b25 40px,
+      #030b25 70px
+    );
+  opacity: .6;
 }
 </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <h1>RACE CHAIN</h1>
-    <div class="subtitle">Web3 Racing in the Metaverse</div>
+<div class="city"></div>
 
-    <a class="cta" href="#" onclick="connectWallet()">
-      CONNECT METAMASK TO START RACING
-    </a>
+<div class="header">
+  <h1>RACE CHAIN</h1>
+  <div class="subtitle">Web3 Racing in the Metaverse</div>
+  <button onclick="connectWallet()">CONNECT WALLET</button>
+</div>
 
-    <div class="cars">
-      <div class="car">
-        <div class="car-model"></div>
-        <div class="car-name">Lancer V1</div>
-        <div class="stats">
-          <span>Speed: 7.5</span>
-          <span>Braking: 6.0</span>
-        </div>
-      </div>
+<div class="cars">
+  <div class="car red"><div class="car-body"></div></div>
+  <div class="car blue"><div class="car-body"></div></div>
+  <div class="car green"><div class="car-body"></div></div>
+</div>
 
-      <div class="car">
-        <div class="car-model"></div>
-        <div class="car-name">Ghost XR</div>
-        <div class="stats">
-          <span>Speed: 8.5</span>
-          <span>Braking: 5.5</span>
-        </div>
-      </div>
-
-      <div class="car">
-        <div class="car-model"></div>
-        <div class="car-name">Lagos</div>
-        <div class="stats">
-          <span>Speed: 8.0</span>
-          <span>Braking: 6.5</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tracks">
-      <h2>Select Your City Track:</h2>
-      <div class="track-buttons">
-        <div class="track">Cape Town</div>
-        <div class="track">Nairobi</div>
-        <div class="track">Accra</div>
-        <div class="track">Lagos</div>
-      </div>
-    </div>
-
-  </div>
+<div class="road"></div>
 
 <script>
 async function connectWallet() {
@@ -199,7 +210,7 @@ async function connectWallet() {
     return;
   }
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  alert("Wallet Connected!");
+  window.location.href = "user-dashboard.html";
 }
 </script>
 
